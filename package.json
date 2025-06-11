@@ -1,6 +1,6 @@
 {
   "name": "@dschz/solid-g6",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A SolidJS component library for graph visualization, powered by @antv/g6",
   "type": "module",
   "author": "Daniel Sanchez <dsanc89@icloud.com>",
