@@ -1,5 +1,11 @@
 # @dschz/solid-g6
 
+## 0.1.1
+
+### Patch Changes
+
+- Updates README documentation
+
 ## 0.1.0
 
 **🎉 Initial release of solid-g6** - A comprehensive graph visualization library for SolidJS built on top of AntV G6
