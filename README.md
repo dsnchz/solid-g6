@@ -5,6 +5,7 @@
 # @dschz/solid-g6
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![@antv/g6](https://img.shields.io/badge/@antv/g6-5.0.0+-orange?style=flat-square)](https://github.com/tradingview/lightweight-charts)
 [![npm](https://img.shields.io/npm/v/@dschz/solid-g6?color=blue)](https://www.npmjs.com/package/@dschz/solid-g6)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/@dschz/solid-uplot)](https://bundlephobia.com/package/@dschz/solid-g6)
 [![JSR](https://jsr.io/badges/@dschz/solid-g6/score)](https://jsr.io/@dschz/solid-g6)
@@ -35,29 +36,33 @@
 
 A comprehensive graph visualization library for [SolidJS](https://www.solidjs.com/) built on top of [AntV G6](https://g6.antv.antgroup.com/). Create interactive, customizable graph visualizations with powerful layout algorithms and real-time controls.
 
+To see the kinds of graphs you can create using G6, ckeck out their [Playground](https://g6.antv.antgroup.com/en/examples) page.
+
 ## 📚 Table of Contents
 
 - [🚀 Features](#-features)
 - [🛠️ Developer Experience](#️-developer-experience)
+- [🚀 Roadmap & Future Enhancements](#-roadmap--future-enhancements)
 - [📦 Installation](#-installation)
 - [📚 Library Exports](#-library-exports)
 - [⚡ Quick Start](#-quick-start)
 - [🎮 Interactive Playground](#-interactive-playground)
-- [🎯 Layout Categories](#-layout-categories)
+- [🎨 Visual Elements](#-visual-elements)
+  - [🔵 Nodes](#-nodes)
+  - [🔗 Edges](#-edges)
+  - [📦 Combos](#-combos)
+  - [🖼️ Canvas](#️-canvas)
+  - [🎯 Styling & Themes](#-styling--themes)
+- [🎯 Supported Layouts](#-supported-layouts)
   - [⚡ Force-Directed Layouts](#-force-directed-layouts)
   - [🌳 Hierarchical Layouts](#-hierarchical-layouts)
   - [⭕ Circular Layouts](#-circular-layouts)
-  - [📊 Grid-Based Layouts](#-grid-based-layouts)
-  - [🔬 Specialized Layouts](#-specialized-layouts)
-- [🎮 Interactive Controls](#-interactive-controls)
+  - [📊 Grid & Specialized Layouts](#-grid--specialized-layouts)
+  - [🔧 Custom Layouts](#-custom-layouts)
 - [📖 API Reference](#-api-reference)
   - [Graph Component](#graph-component)
   - [Context API](#context-api)
   - [Utility Functions](#utility-functions)
-  - [Types](#types)
-- [🎨 Styling & Theming](#-styling--theming)
-- [🔧 Advanced Usage](#-advanced-usage)
-- [📱 Responsive Design](#-responsive-design)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 
@@ -92,7 +97,7 @@ Solid G6 significantly enhances the developer experience when working with AntV 
 - **Composition-friendly**: Easy to compose and reuse configurations across your application
 - **Zero Runtime Overhead**: All utilities are compile-time only - no bundle size impact
 
-### 📚 **Better Documentation**
+### 📚 **Improved Documentation**
 
 - **Inline Documentation**: JSDoc comments with examples for every option and parameter
 - **Type Definitions as Documentation**: Your IDE shows exactly what options are available
@@ -293,274 +298,142 @@ While this README provides comprehensive information, the **interactive playgrou
 
 **Start exploring: `bun start` and visit `http://localhost:3000`** 🚀
 
-## 🎯 Layout Categories
+## 🎨 Visual Elements
 
-### ⚡ Force-Directed Layouts
+### 🔵 **Nodes**
 
-Force-directed layouts simulate physical forces to create natural, aesthetically pleasing arrangements.
+Individual graph elements with comprehensive styling and interaction capabilities:
 
-#### 🔧 Force Layout
+- **Built-in Shapes**: `circle`, `rect`, `ellipse`, `diamond`, `triangle`, `star`, `image`, `donut`, `3d-sphere`
+- **Custom Node Types**: Create fully custom node renderers with unique shapes, behaviors, and interactions
+- **Custom Styling**: Colors, sizes, borders, shadows, opacity, and CSS properties
+- **Interactive States**: Hover, selected, disabled with automatic state management
+- **Rich Labels**: Text positioning, formatting, multi-line support, and custom fonts
+- **Data Binding**: Automatic visual mapping from node data properties
 
-Classic spring-embedder algorithm with comprehensive physics controls.
+### 🔗 **Edges**
 
-**Key Features:**
+Connections between nodes with flexible routing and styling:
 
-- Physics simulation with gravity, node/edge strength
-- Collision detection and prevention
-- Real-time clustering support
-- Damping and speed controls
+- **Edge Types**: `line`, `polyline`, `cubic`, `quadratic`, `cubic-horizontal`, `cubic-vertical`, `loop-edge`
+- **Custom Edge Types**: Build custom edge renderers with unique routing algorithms and visual effects
+- **Visual Styling**: Colors, thickness, dash patterns, opacity, and gradients
+- **Smart Routing**: Automatic collision avoidance and optimal path calculation
+- **Directional Flow**: Arrows, labels, and markers for directed relationships
+- **Curved Connections**: Bezier curves and custom bend points for complex routing
 
-**Use Cases:**
+### 📦 **Combos**
 
-- Social networks
-- Team structures
-- Network topology visualization
+Grouping containers for organizing related nodes:
+
+- **Flexible Grouping**: Logical organization of related nodes with visual boundaries
+- **Custom Combo Types**: Design custom group containers with specialized layouts and behaviors
+- **Interactive Management**: Expand/collapse, drag groups, and nested hierarchies
+- **Custom Styling**: Background colors, borders, padding, and visual themes
+- **Dynamic Updates**: Real-time group membership changes and visual updates
+- **Label Support**: Group titles, descriptions, and metadata display
+
+### 🖼️ **Canvas**
+
+Rendering context and interaction surface:
+
+- **Multiple Renderers**: SVG, Canvas, and WebGL rendering backends for different performance needs
+- **Custom Canvas Types**: Implement specialized rendering engines or interaction layers
+- **Zoom & Pan**: Built-in viewport controls with smooth animations and boundaries
+- **Event Handling**: Comprehensive event system for mouse, touch, and keyboard interactions
+- **Performance Optimization**: Automatic LOD (Level of Detail) and viewport culling
+
+### 🎯 **Styling & Themes**
+
+All elements support comprehensive customization:
 
 ```tsx
-import { Graph, createGraphData } from "@dschz/solid-g6";
-
-const data = createGraphData({
-  nodes: [
-    { id: "team1", data: { label: "Frontend Team", cluster: "engineering" } },
-    { id: "team2", data: { label: "Backend Team", cluster: "engineering" } },
-    { id: "team3", data: { label: "Data Team", cluster: "analytics" } },
-  ],
-  edges: [
-    { source: "team1", target: "team2" },
-    { source: "team2", target: "team3" },
-  ],
-});
-
 <Graph
-  layout={{
-    type: "force",
-    gravity: 1,
-    edgeStrength: 0.5,
-    nodeStrength: -10,
-    linkDistance: 100,
-    preventOverlap: true,
-    clustering: true,
+  node={{
+    style: { fill: "#1890ff", stroke: "#096dd9", lineWidth: 2 },
+    labelStyle: { fontSize: 12, fontWeight: "bold" },
+    state: {
+      hover: { fill: "#40a9ff" },
+      selected: { stroke: "#722ed1", lineWidth: 3 },
+    },
   }}
-  data={data}
-/>;
+  edge={{
+    style: { stroke: "#d9d9d9", lineWidth: 1 },
+    labelStyle: { background: "white", padding: [2, 4] },
+  }}
+  combo={{
+    style: { fill: "#f0f0f0", stroke: "#d9d9d9" },
+    labelStyle: { fontSize: 14, fontWeight: "bold" },
+  }}
+/>
 ```
 
-#### 🌊 D3 Force Layout
+**🎨 Explore Styling**: See all visual customization options in the [**interactive playground**](#-interactive-playground) with live style editors and preset themes.
 
-Advanced force simulation using D3's force system with 5 configurable force types.
+## 🎯 Supported Layouts
 
-**Force Types:**
+Solid G6 supports 13+ built-in layout algorithms covering all major visualization patterns:
 
-- **Link Force**: Connects related nodes
-- **Many-Body Force**: Node repulsion/attraction
-- **Center Force**: Gravitational center pull
-- **Collision Force**: Prevents node overlap
-- **Radial Force**: Circular positioning around point
+### ⚡ **Force-Directed Layouts**
 
-**Use Cases:**
+- **`force`** - Classic physics simulation with gravity and clustering
+- **`d3-force`** - Advanced D3 force system with 5 configurable force types
+- **`forceAtlas2`** - High-performance algorithm for large networks
+- **`fruchterman`** - Aesthetic force-directed with community detection
 
-- Complex network analysis
-- Molecular structure visualization
-- Multi-cluster data organization
+### 🌳 **Hierarchical Layouts**
 
-#### 🚀 ForceAtlas2 Layout
+- **`dagre`** - Directed graphs with sophisticated edge routing
+- **`antv-dagre`** - Enhanced Dagre with improved visual appeal
 
-High-performance force-directed algorithm optimized for large networks.
+### ⭕ **Circular Layouts**
 
-**Key Features:**
+- **`circular`** - Even distribution around a circle
+- **`radial`** - Tree structures in concentric circles
+- **`concentric`** - Multiple circles based on node properties
 
-- Community detection
-- Edge weight consideration
-- Scalable to thousands of nodes
-- Advanced repulsion algorithms
+### 📊 **Grid & Specialized Layouts**
 
-**Use Cases:**
+- **`grid`** - Regular matrix arrangement
+- **`mds`** - Multidimensional scaling for similarity visualization
+- **`fishbone`** - Cause-and-effect diagrams
+- **`snake`** - Sequential flow arrangements
 
-- Large social networks
-- Citation networks
-- Biological networks
+### 🔧 **Custom Layouts**
 
-#### 🎯 Fruchterman Layout
+Register your own layout algorithms for specialized use cases:
 
-Aesthetic force-directed algorithm with clustering support.
+```tsx
+import { BaseLayout, register, type GraphData }
+import { Graph } from "@dschz/solid-g6";
 
-**Key Features:**
+class DiagonalLayout extends BaseLayout {
+  id = 'diagonal-layout';
 
-- Balanced attractive/repulsive forces
-- Built-in clustering with gravity
-- Customizable field selection for grouping
-- Reaches aesthetic equilibrium
+  async execute(data: GraphData): Promise<GraphData> {
+    const { nodes = [] } = data;
+    return {
+      nodes: nodes.map((node, index) => ({
+        id: node.id,
+        style: {
+          x: 50 * index + 25,
+          y: 50 * index + 25,
+        },
+      })),
+    };
+  }
+}
 
-**Use Cases:**
+// Register custom layout
+register("diagonal-layout", DiagonalLayout);
 
-- Document clustering
-- Team organization charts
-- Concept mapping
+// Use in graph
+<Graph layout={{ type: "diagonal-layout", customParam: "value" }} />;
+```
 
-### 🌳 Hierarchical Layouts
+### 📚 **Interactive Examples**
 
-Perfect for representing tree structures and hierarchical relationships.
-
-#### 📊 Dagre Layout
-
-Directed acyclic graph layout with sophisticated edge routing.
-
-**Key Features:**
-
-- Multiple ranking algorithms
-- Automatic edge routing
-- Configurable node separation
-- Support for different orientations
-
-**Use Cases:**
-
-- Flowcharts
-- Decision trees
-- Process diagrams
-- Organizational charts
-
-#### ⚡ AntV Dagre Layout
-
-Enhanced version of Dagre with improved visual appeal.
-
-**Key Features:**
-
-- Better edge aesthetics
-- Improved node positioning
-- Enhanced performance
-- Smoother curves
-
-### ⭕ Circular Layouts
-
-Arrange nodes in circular patterns for balanced visualization.
-
-#### ⭕ Circular Layout
-
-Distributes nodes evenly around a perfect circle.
-
-**Key Features:**
-
-- Configurable radius
-- Custom ordering strategies
-- Division control
-- Clockwise/counterclockwise arrangement
-
-**Use Cases:**
-
-- Timeline visualization
-- Cyclic processes
-- Equal-importance networks
-
-#### 🌟 Radial Layout
-
-Tree structure arranged in concentric circles from center outward.
-
-**Key Features:**
-
-- Hierarchical radial positioning
-- Configurable unit radius
-- Link length optimization
-- Focus node selection
-
-**Use Cases:**
-
-- Family trees
-- Dependency graphs
-- Hub-and-spoke networks
-
-#### 🎯 Concentric Layout
-
-Multiple concentric circles based on node properties.
-
-**Key Features:**
-
-- Property-based circle assignment
-- Custom sorting within circles
-- Configurable spacing
-- Dynamic circle count
-
-**Use Cases:**
-
-- Importance-based visualization
-- Category organization
-- Priority networks
-
-### 📊 Grid-Based Layouts
-
-Regular grid arrangements for structured visualization.
-
-#### 📐 Grid Layout
-
-Arranges nodes in a regular grid pattern.
-
-**Key Features:**
-
-- Configurable rows and columns
-- Custom ordering strategies
-- Adjustable spacing
-- Automatic size calculation
-
-**Use Cases:**
-
-- Matrix visualization
-- Regular data display
-- Catalog layouts
-
-### 🔬 Specialized Layouts
-
-Purpose-built layouts for specific visualization needs.
-
-#### 📏 MDS Layout
-
-Multidimensional scaling for dimension reduction visualization.
-
-**Key Features:**
-
-- Preserves inter-node distances
-- Dimension reduction algorithms
-- Stress minimization
-- Custom distance functions
-
-**Use Cases:**
-
-- Data clustering visualization
-- Similarity networks
-- Dimension reduction results
-
-#### 🐟 Fishbone Layout
-
-Cause-and-effect diagram visualization.
-
-**Key Features:**
-
-- Hierarchical cause structure
-- Category-based branching
-- Root cause positioning
-- Effect relationship mapping
-
-**Use Cases:**
-
-- Root cause analysis
-- Problem-solving diagrams
-- Quality management
-- Process improvement
-
-#### 🐍 Snake Layout
-
-Sequential arrangement in a snake-like pattern.
-
-**Key Features:**
-
-- Sequential node ordering
-- Configurable turns and spacing
-- Direction control
-- Path optimization
-
-**Use Cases:**
-
-- Process flows
-- Sequential data
-- Timeline layouts
+Explore all layouts with live examples and controls in our [**interactive playground**](#-interactive-playground) - the best way to understand each algorithm's capabilities and use cases.
 
 ## 📖 API Reference
 
